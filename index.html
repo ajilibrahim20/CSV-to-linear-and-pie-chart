@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Read CSV</title>
+	<script type="text/javascript" src="JavaScript/papaparse.min.js"></script>
+	<script src="https://unpkg.com/d3@5.12.0/dist/d3.min.js"></script>
+	<link href="https://unpkg.com/c3@0.7.11/c3.min.css" rel="stylesheet">
+	<script src="https://unpkg.com/c3@0.7.11/c3.min.js"></script>
+</head>
+<body>
+
+
+	<div id="chart"></div>
+	<input type="file" id="upload-csv" accept=".csv">
+	<button id="btn-upload-csv">Read CSV</button>
+	<table id="tbl-data">
+
+	</table>
+	<script type="text/javascript">
+			 function aa(){ 
+
+c3.generate({
+bindto: '#chart',
+data: {
+// iris data from R
+columns:arr,
+type : 'pie',
+// colors: {
+//     data1: '#ff0000',
+//     data2: '#00ff00',
+//     data3: '#0000ff'
+// },
+onclick: function (d, i) { console.log("onclick", d, i); },
+onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+}
+}); }
+	 arr=[]
+		let btn_upload = document.getElementById('btn-upload-csv').addEventListener('click', ()=> {
+
+			 Papa.parse(document.getElementById("upload-csv").files[0], {	
+				download: true,
+				header: true,
+				complete: function(results) {
+					console.log("\n\n\n\n\here lies\n\n\n\n");
+					console.log(results);
+					console.log("\n\n\n\n\here lies\n\n\n\n");
+
+					let i = 0;
+					results.data.map((data, index)=> {
+
+						var temp = [data["Product Name;"]+i.toString(),parseInt(data["Number Of Bugs"])];
+					
+							console.log("added");
+						arr.push(temp);
+						// console.log(temp)
+						if (i === 0) {
+							let table = document.getElementById('tbl-data');
+							// console.log("\n\n\n\n\here lies\n\n\n\n");
+							// console.log(data)
+							// console.log("\n\n\n\n\here lies\n\n\n\n");
+							generateTableHead(table, data);
+						} else {
+							let table = document.getElementById('tbl-data');
+							generateTableRows(table, data);
+						}
+						i++;
+					});
+					aa();
+
+				}
+			});
+
+			console.log(arr);
+			k=[
+			["Arista Router;2", 6],["Arista Router;", 8],["Juniper Router;", 20],["Arista Router;22", 6],["Arista Router;3", 8],["Juniper Routr;", 20]
+            
+        	]	
+			console.log(k);
+
+
+
+
+		
+
+
+
+		});
+
+
+
+
+		a= 
+
+			c3.generate({
+bindto: '#chart',
+data: {
+        // iris data from R
+        columns:arr,
+        type : 'pie',
+		// colors: {
+        //     data1: '#ff0000',
+        //     data2: '#00ff00',
+        //     data3: '#0000ff'
+        // },
+        onclick: function (d, i) { console.log("onclick", d, i); },
+        onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+        onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+    }
+}); 
+
+
+		
+		function generateTableHead(table, data) {
+			let thead = table.createTHead();
+			let row = thead.insertRow();
+			console.log("\n\n\n\n\here lies agan\n\n\n\n");
+							console.log(typeof(data))
+							console.log("\n\n\n\n\here lies again\n\n\n\n");
+			for(let key of Object.keys(data)) {
+				let th = document.createElement('th');
+				let text = document.createTextNode(key);
+				th.appendChild(text);
+				row.appendChild(th);
+			}
+		}
+
+		function generateTableRows(table, data) {
+			let newRow = table.insertRow(-1);
+			Object.keys(data).map((row)=> {
+				let newCell = newRow.insertCell();
+				let newText = document.createTextNode(data[row]);
+				newCell.appendChild(newText);
+			});
+		}
+
+
+
+
+	
+
+
+
+
+
+
+	</script>
+
+
+
+
+<script>
+// var chart = c3.generate({
+// bindto: '#chart',
+// data: {
+//         // iris data from R
+//         columns: [
+//             ['data1', 30],
+//             ['data2', 120],
+//         ],
+//         type : 'pie',
+//         onclick: function (d, i) { console.log("onclick", d, i); },
+//         onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+//         onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+//     }
+// }); 
+// chart.transform('pie');           
+</script>
+</body>
+
+</html>
