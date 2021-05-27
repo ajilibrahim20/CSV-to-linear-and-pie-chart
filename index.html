@@ -1,23 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Read CSV</title>
+	<title>CSV Reader</title>
 	<script type="text/javascript" src="JavaScript/papaparse.min.js"></script>
 	<script src="https://unpkg.com/d3@5.12.0/dist/d3.min.js"></script>
 	<link href="https://unpkg.com/c3@0.7.11/c3.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 	<script src="https://unpkg.com/c3@0.7.11/c3.min.js"></script>
+	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+	<div class="banner wow zoomIn" data-wow-delay="0.1s">
+			<div class="container">
+					<div class="section-header text-center headding1">
 
+							<h1>   Chart your CSV </h1>
+							<p> select your csv file and analyze data </p>
+
+					</div>
+					<div class"selection">
+					<input type="file" id="upload-csv" accept=".csv" class="btn">
+					<button class="btn button" id="btn-upload-csv">Read CSV</button>
+				</div>
+
+			</div>
+	</div>
 
 	<div id="chart"></div>
-	<input type="file" id="upload-csv" accept=".csv">
-	<button id="btn-upload-csv">Read CSV</button>
 	<table id="tbl-data">
 
 	</table>
 	<script type="text/javascript">
-			 function aa(){ 
+			 function aa(){
 
 c3.generate({
 bindto: '#chart',
@@ -38,7 +52,7 @@ onmouseout: function (d, i) { console.log("onmouseout", d, i); }
 	 arr=[]
 		let btn_upload = document.getElementById('btn-upload-csv').addEventListener('click', ()=> {
 
-			 Papa.parse(document.getElementById("upload-csv").files[0], {	
+			 Papa.parse(document.getElementById("upload-csv").files[0], {
 				download: true,
 				header: true,
 				complete: function(results) {
@@ -50,7 +64,7 @@ onmouseout: function (d, i) { console.log("onmouseout", d, i); }
 					results.data.map((data, index)=> {
 
 						var temp = [data["Product Name;"]+i.toString(),parseInt(data["Number Of Bugs"])];
-					
+
 							console.log("added");
 						arr.push(temp);
 						// console.log(temp)
@@ -74,14 +88,14 @@ onmouseout: function (d, i) { console.log("onmouseout", d, i); }
 			console.log(arr);
 			k=[
 			["Arista Router;2", 6],["Arista Router;", 8],["Juniper Router;", 20],["Arista Router;22", 6],["Arista Router;3", 8],["Juniper Routr;", 20]
-            
-        	]	
+
+        	]
 			console.log(k);
 
 
 
 
-		
+
 
 
 
@@ -90,7 +104,7 @@ onmouseout: function (d, i) { console.log("onmouseout", d, i); }
 
 
 
-		a= 
+		a=
 
 			c3.generate({
 bindto: '#chart',
@@ -107,10 +121,10 @@ data: {
         onmouseover: function (d, i) { console.log("onmouseover", d, i); },
         onmouseout: function (d, i) { console.log("onmouseout", d, i); }
     }
-}); 
+});
 
 
-		
+
 		function generateTableHead(table, data) {
 			let thead = table.createTHead();
 			let row = thead.insertRow();
@@ -137,7 +151,7 @@ data: {
 
 
 
-	
+
 
 
 
@@ -163,8 +177,8 @@ data: {
 //         onmouseover: function (d, i) { console.log("onmouseover", d, i); },
 //         onmouseout: function (d, i) { console.log("onmouseout", d, i); }
 //     }
-// }); 
-// chart.transform('pie');           
+// });
+// chart.transform('pie');
 </script>
 </body>
 
